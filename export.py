@@ -36,7 +36,7 @@ def export_toa_radiance(band_toa_radiance, band_transform, band_name):
 
 # Xuất ảnh đã tính Surface Reflectance
 def export_surface_reflectance(band_surface_reflectance, band_transform, band_name):
-    output_path = "D:\\ThuNghiem\\TOA_Reflectance\\" + band_name
+    output_path = "D:\\ThuNghiem\\4. TOA_Reflectance\\" + band_name
 
     # Xuất ảnh
     with rasterio.open(output_path, 'w', driver='GTiff', height=band_surface_reflectance.shape[0],
@@ -47,7 +47,7 @@ def export_surface_reflectance(band_surface_reflectance, band_transform, band_na
 
 
 def export_ndvi(ndvi, band_transform,band_name):
-    output_path = "D:\\ThuNghiem\\NDVI, NDWI, LST\\" + band_name
+    output_path = "D:\\ThuNghiem\\5. NDVI, NDWI, LST\\" + band_name
 
     # Xuất ảnh
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndvi.shape[0],
@@ -58,7 +58,7 @@ def export_ndvi(ndvi, band_transform,band_name):
 
 
 def export_ndwi(ndwi, band_transform,band_name):
-    output_path = "D:\\ThuNghiem\\NDVI, NDWI, LST\\"+band_name
+    output_path = "D:\\ThuNghiem\\5. NDVI, NDWI, LST\\"+band_name
 
     # Xuất ảnh
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndwi.shape[0],
