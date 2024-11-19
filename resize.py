@@ -2,13 +2,6 @@ import rasterio
 from rasterio.transform import Affine
 
 
-# Hàm đọc dữ liệu band từ file
-def read_band(file_path):
-    with rasterio.open(file_path) as src:
-        data = src.read(1)  # Đọc band đầu tiên
-        transform = src.transform
-    return data, transform
-
 # Cắt ảnh viễn thám
 def resize_remote_sensing_image(data, transform, start_sample, end_sample, start_line, end_line):
     # Cắt dữ liệu

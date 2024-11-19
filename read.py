@@ -4,7 +4,7 @@ import rasterio
 # Đọc MTL.txt file
 def read_mtl(file_path):
     # Đọc nội dung từ file .txt
-    with open('D:\\ThuNghiem\\LC09_L1TP_125053_20240226_20240226_02_T1_MTL.txt', 'r') as file:
+    with open(file_path, 'r') as file:
         lines = file.readlines()
 
     landsat_product_id = ""
