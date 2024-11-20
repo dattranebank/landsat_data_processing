@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import rasterio
 
-# asda
+
+# Xuất tham số ảnh Landsat 8-9
 def export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_to_11_lst, cloud_cover,
                             cloud_cover_land, sun_elevation, map_projection, datum, utm_zone,
                             grid_cell_size_panchromatic, grid_cell_size_reflective, grid_cell_size_thermal,
@@ -53,6 +54,26 @@ def export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_
         file.write(f"K2_CONSTANT_BAND_11 = {k2_constant_band_11}\n")
 
     print(f'Các tham số đã được xuất thành công ra {txt_path}')
+
+
+# Xuất tổ hợp B432
+def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_transform, band_name):
+    output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\" + band_name
+    with rasterio.open(
+            output_path,
+            'w',
+            driver='GTiff',
+            height=band4_reflectance.shape[0],
+            width=band4_reflectance.shape[1],
+            count=3,  # 3 băng: Red, Green, Blue
+            dtype='uint16',
+            crs='EPSG:32648',  # CRS (tọa độ địa lý)
+            transform=band_transform
+    ) as dst:
+        dst.write(band4_reflectance, 1)
+        dst.write(band3_reflectance, 2)
+        dst.write(band2_reflectance, 3)
+    print(f"Ảnh tổ hợp B432 đã được xuất tại: {output_path}")
 
 
 # Xuất ảnh viễn thám thành file csv

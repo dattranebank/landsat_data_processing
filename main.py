@@ -26,7 +26,7 @@ def main():
                             reflectance_mult_band, reflectance_add_band, k1_constant_band_10, k2_constant_band_10,
                             k1_constant_band_11, k2_constant_band_11, landsat_metadata_path)
 
-    # Đường dẫn tới Band 3, Band 4, Band 5 và Band 10
+    # Đường dẫn tới Band 2, Band 3, Band 4, Band 5 và Band 10
     band2_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B2.TIF"
     band3_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B3.TIF"
     band4_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B4.TIF"
@@ -56,51 +56,51 @@ def main():
     band10_dn, band10_transform = resize_remote_sensing_image(band10_dn, band10_transform,
                                                               start_sample=1413, end_sample=2912,
                                                               start_line=966, end_line=2465)
-    # Xử lý band 2
-    ## Hiển thị band 2
+
+    # Hiển thị band
     show_remote_sensing_image(band2_dn, "Band 2")
-    ## Tính Surface Reflectance
+    show_remote_sensing_image(band3_dn, "Band 3")
+    show_remote_sensing_image(band4_dn, "Band 4")
+    show_remote_sensing_image(band5_dn, "Band 5")
+    show_remote_sensing_image(band10_dn, "Band 10")
+
+    # Tính Surface Reflectance
     band2_surface_reflectance = calculate_surface_reflectance(band2_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
-    ## Xuất Surface Reflectance
-    export_surface_reflectance(band2_surface_reflectance, band2_transform, "Band2_TOA_Reflectance_Python.TIF")
-
-    # Xử lý band 3
-    ## Hiển thị band 3
-    show_remote_sensing_image(band3_dn, "Band 3")
-    ## Tính Surface Reflectance
     band3_surface_reflectance = calculate_surface_reflectance(band3_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
-    ## Xuất Surface Reflectance
-    export_surface_reflectance(band3_surface_reflectance, band3_transform, "Band3_TOA_Reflectance_Python.TIF")
-
-    # Xử lý band 4
-    ## Hiển thị band 4
-    show_remote_sensing_image(band4_dn, "Band 4")
-    ## Tính Surface Reflectance
     band4_surface_reflectance = calculate_surface_reflectance(band4_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
-    ## Xuất Surface Reflectance
-    export_surface_reflectance(band4_surface_reflectance, band4_transform, "Band4_TOA_Reflectance_Python.TIF")
-
-    # Xử lý band 5
-    ## Hiển thị band 5
-    show_remote_sensing_image(band5_dn, "Band 5")
-    ## Tính Surface Reflectance
     band5_surface_reflectance = calculate_surface_reflectance(band5_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
-    ## Xuất Surface Reflectance
-    export_surface_reflectance(band5_surface_reflectance, band5_transform, "Band5_TOA_Reflectance_Python.TIF")
+
+
+
+    # Gọi hàm xuất ảnh
+    export_b432(band2_surface_reflectance, band3_surface_reflectance, band4_surface_reflectance,
+                band2_transform, "B432_Python.TIF")
+
+    # # Tổ hợp B432
+    # rgb = create_b432(band2_dn, band3_dn, band4_dn)
+    # plt.figure(figsize=(10, 10))
+    # plt.imshow(rgb)
+    # plt.title("True Color Composite (B432)")
+    # plt.axis('off')
+    # plt.show()
+
+    # Xuất Surface Reflectance
+    export_surface_reflectance(band2_surface_reflectance, band2_transform, "B2_TOA_Reflectance_Python.TIF")
+    export_surface_reflectance(band3_surface_reflectance, band3_transform, "B3_TOA_Reflectance_Python.TIF")
+    export_surface_reflectance(band4_surface_reflectance, band4_transform, "B4_TOA_Reflectance_Python.TIF")
+    export_surface_reflectance(band5_surface_reflectance, band5_transform, "B5_TOA_Reflectance_Python.TIF")
 
     # Xử lý band 10
-    ## Hiển thị band 10
-    show_remote_sensing_image(band10_dn, "Band 10")
     ## Tính TOA Radiance
     band10_toa_radiance = calculate_toa_radiance(band10_dn, radiance_mult_band_1_to_11_lst[9],
                                                  radiance_add_band_1_to_11_lst[9])
 
     ## Xuất TOA Radiance
-    export_toa_radiance(band10_toa_radiance, band10_transform, "Band10_TOA_Radiance_Python.TIF")
+    export_toa_radiance(band10_toa_radiance, band10_transform, "B10_TOA_Radiance_Python.TIF")
 
     # # Tính BT
     # # Tính E
