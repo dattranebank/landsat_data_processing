@@ -59,17 +59,12 @@ def export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_
 # Xuất tổ hợp B432
 def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_transform, band_name):
     output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\" + band_name
-    with rasterio.open(
-            output_path,
-            'w',
-            driver='GTiff',
-            height=band4_reflectance.shape[0],
-            width=band4_reflectance.shape[1],
-            count=3,  # 3 băng: Red, Green, Blue
-            dtype='uint16',
-            crs='EPSG:32648',  # CRS (tọa độ địa lý)
-            transform=band_transform
-    ) as dst:
+    with (rasterio.open(output_path, 'w', driver='GTiff',
+                        height=band4_reflectance.shape[0], width=band4_reflectance.shape[1],
+                        count=3,  # 3 băng: Red, Green, Blue
+                        dtype='float32', crs='EPSG:32648',
+                        transform=band_transform)
+          as dst):
         dst.write(band4_reflectance, 1)
         dst.write(band3_reflectance, 2)
         dst.write(band2_reflectance, 3)
@@ -88,8 +83,8 @@ def export_remote_sensing_image_to_csv(band, band_name):
 # Xuất cùng ảnh
 def export_origin(band, band_transform, band_name):
     output_path = band_name
-    with rasterio.open(output_path, 'w', driver='GTiff', height=band.shape[0],
-                       width=band.shape[1],
+    with rasterio.open(output_path, 'w', driver='GTiff',
+                       height=band.shape[0], width=band.shape[1],
                        count=1, dtype='uint16', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(band, 1)
@@ -99,7 +94,7 @@ def export_origin(band, band_transform, band_name):
 def export_toa_radiance(band_toa_radiance, band_transform, band_name):
     output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\1. TOA_Radiance\\" + band_name
 
-    # Xuất ảnh
+    # Xuất band
     with rasterio.open(output_path, 'w', driver='GTiff', height=band_toa_radiance.shape[0],
                        width=band_toa_radiance.shape[1],
                        count=1, dtype='float32', crs='EPSG:32648',
@@ -111,7 +106,7 @@ def export_toa_radiance(band_toa_radiance, band_transform, band_name):
 def export_surface_reflectance(band_surface_reflectance, band_transform, band_name):
     output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\2. TOA_Reflectance\\" + band_name
 
-    # Xuất ảnh
+    # Xuất band
     with rasterio.open(output_path, 'w', driver='GTiff', height=band_surface_reflectance.shape[0],
                        width=band_surface_reflectance.shape[1],
                        count=1, dtype='float32', crs='EPSG:32648',
@@ -119,10 +114,11 @@ def export_surface_reflectance(band_surface_reflectance, band_transform, band_na
         dst.write(band_surface_reflectance, 1)
 
 
+# Xuất ảnh đã tính DNVI
 def export_ndvi(ndvi, band_transform, band_name):
-    output_path = "D:\\ThuNghiem\\5. NDVI, NDWI, LST\\" + band_name
+    output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\3. NDVI\\" + band_name
 
-    # Xuất ảnh
+    # Xuất ảnh NDVI
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndvi.shape[0],
                        width=ndvi.shape[1],
                        count=1, dtype='float32', crs='EPSG:32648',
@@ -130,12 +126,25 @@ def export_ndvi(ndvi, band_transform, band_name):
         dst.write(ndvi, 1)
 
 
+# Xuất ảnh đã tính NDWI
 def export_ndwi(ndwi, band_transform, band_name):
-    output_path = "D:\\ThuNghiem\\5. NDVI, NDWI, LST\\" + band_name
+    output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\4. NDWI\\" + band_name
 
-    # Xuất ảnh
+    # Xuất ảnh NDWI
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndwi.shape[0],
                        width=ndwi.shape[1],
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(ndwi, 1)
+
+
+# Xuất ảnh đã tính LST
+def export_lst(lst, band_transform, band_name):
+    output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\5. LST\\" + band_name
+
+    # Xuất ảnh LST
+    with rasterio.open(output_path, 'w', driver='GTiff', height=lst.shape[0],
+                       width=lst.shape[1],
+                       count=1, dtype='float32', crs='EPSG:32648',
+                       transform=band_transform) as dst:
+        dst.write(lst, 1)
