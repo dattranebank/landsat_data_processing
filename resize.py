@@ -1,4 +1,3 @@
-import rasterio
 from rasterio.transform import Affine
 
 

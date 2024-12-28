@@ -114,7 +114,7 @@ def export_surface_reflectance(band_surface_reflectance, band_transform, band_na
         dst.write(band_surface_reflectance, 1)
 
 
-# Xuất ảnh đã tính DNVI
+# Xuất ảnh đã tính NDVI
 def export_ndvi(ndvi, band_transform, band_name):
     output_path = "D:\\VQG_TramChim\\03_landsat_processed_data\\3. NDVI\\" + band_name
 

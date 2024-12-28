@@ -106,10 +106,10 @@ def main():
     export_toa_radiance(band10_toa_radiance, band10_transform, "B10_TOA_Radiance_Python.TIF")
 
     # Xuất Surface Reflectance
-    export_surface_reflectance(band2_surface_reflectance, band2_transform, "B2_TOA_Reflectance_Python.TIF")
-    export_surface_reflectance(band3_surface_reflectance, band3_transform, "B3_TOA_Reflectance_Python.TIF")
-    export_surface_reflectance(band4_surface_reflectance, band4_transform, "B4_TOA_Reflectance_Python.TIF")
-    export_surface_reflectance(band5_surface_reflectance, band5_transform, "B5_TOA_Reflectance_Python.TIF")
+    export_surface_reflectance(band2_surface_reflectance, band2_transform, "B2_Surface_Reflectance_Python.TIF")
+    export_surface_reflectance(band3_surface_reflectance, band3_transform, "B3_Surface_Reflectance_Python.TIF")
+    export_surface_reflectance(band4_surface_reflectance, band4_transform, "B4_Surface_Reflectance_Python.TIF")
+    export_surface_reflectance(band5_surface_reflectance, band5_transform, "B5_Surface_Reflectance_Python.TIF")
 
     # Xuất NDVI, NDWI
     export_ndvi(ndvi, band3_transform, "NDVI_Python.TIF")
