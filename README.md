@@ -24,4 +24,4 @@ Note: Complete check output landsat_data_processing, ENVI 5.3 and ArcGIS 10.8
 * NDVI
 * NDWI
 * LST
-
+Note: Complete check output landsat_data_processing, ENVI 5.3 and ArcGIS 10.8

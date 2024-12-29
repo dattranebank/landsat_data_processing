@@ -7,7 +7,7 @@ from export import *
 
 def main():
     # Đọc số liệu từ MTL file
-    mtl_path = "D:\\VQG_TramChim\\02_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_MTL.txt"
+    mtl_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_MTL.txt"
     (landsat_product_id, output_format, data_type_band_1_to_11_lst, cloud_cover, cloud_cover_land,
      sun_elevation, map_projection, datum, utm_zone, grid_cell_size_panchromatic, grid_cell_size_reflective,
      grid_cell_size_thermal, corner_ul_lat_product, corner_ul_lon_product, corner_ur_lat_product, corner_ur_lon_product,
@@ -16,7 +16,7 @@ def main():
      k1_constant_band_10, k2_constant_band_10, k1_constant_band_11, k2_constant_band_11) = read_mtl(mtl_path)
 
     # Xuất thông số ảnh viễn thám Landsat
-    landsat_metadata_path = 'D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\TramChim_MuaKho_2024_MTL.txt'
+    landsat_metadata_path = 'D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\TramChim_MuaKho_2024_MTL.txt'
     export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_to_11_lst, cloud_cover,
                             cloud_cover_land, sun_elevation, map_projection, datum, utm_zone,
                             grid_cell_size_panchromatic, grid_cell_size_reflective, grid_cell_size_thermal,
@@ -27,11 +27,11 @@ def main():
                             k1_constant_band_11, k2_constant_band_11, landsat_metadata_path)
 
     # Đường dẫn tới Band 2, Band 3, Band 4, Band 5 và Band 10
-    band2_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B2.TIF"
-    band3_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B3.TIF"
-    band4_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B4.TIF"
-    band5_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B5.TIF"
-    band10_path = "D:\\VQG_TramChim\\02_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B10.TIF"
+    band2_path = "D:\\VQG_TramChim\\05_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B2.TIF"
+    band3_path = "D:\\VQG_TramChim\\05_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B3.TIF"
+    band4_path = "D:\\VQG_TramChim\\05_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B4.TIF"
+    band5_path = "D:\\VQG_TramChim\\05_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B5.TIF"
+    band10_path = "D:\\VQG_TramChim\\05_landsat_raw_data\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B10.TIF"
 
     # Đọc từng band
     band2_dn, band2_transform = read_band(band2_path)
@@ -85,7 +85,7 @@ def main():
     band10_toa_bt = calculate_toa_brightness_temperature(band10_toa_radiance, k1_constant_band_10, k2_constant_band_10)
 
     # Tính Land Surface Emissivity (LSE)
-    lse = calculate_lse(ndvi)
+    pv,lse = calculate_lse(ndvi)
 
     # Tính Land Surface Temperature (LST)
     lst = calculate_lst(band10_toa_bt, lse)
@@ -115,7 +115,12 @@ def main():
     export_ndvi(ndvi, band3_transform, "NDVI_Python.TIF")
     export_ndwi(ndwi, band3_transform, "NDWI_Python.TIF")
 
-    # Xuất LST
+    # Xuất TOA Brightness Temperature
+    export_toa_bt(band10_toa_bt, band10_transform, "B10_TOA_BT_Python.TIF")
+
+    # Xuất PV, LSE, LST
+    export_lst(pv,band10_transform,"PV_Python.TIF")
+    export_lst(lse,band10_transform,"LSE_Python.TIF")
     export_lst(lst,band10_transform,"LST_Python.TIF")
 
 

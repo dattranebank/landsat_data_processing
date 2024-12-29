@@ -29,7 +29,7 @@ def calculate_ndwi(band3, band5):
 
 # Tính TOA Brightness Temperature
 def calculate_toa_brightness_temperature(band10_toa_radiance, k1, k2):
-    band10_toa_bt = k2 / np.log(k1 / band10_toa_radiance + 1) - 272.15
+    band10_toa_bt = k2 / np.log(k1 / band10_toa_radiance + 1) - 273.15
     return band10_toa_bt
 
 
@@ -40,11 +40,11 @@ def calculate_lse(ndvi):
     ndvi_max = np.max(ndvi)
 
     # Tính Proportion of Vegetation (PV)
-    pv = ((ndvi - ndvi_min) / (ndvi_max + ndvi_min)) ** 2
+    pv = ((ndvi - ndvi_min) / (ndvi_max - ndvi_min)) ** 2
 
     # Tính Land Surface Emissivity (LSE)
     lse = 0.004 * pv + 0.986
-    return lse
+    return pv,lse
 
 
 # Tính Land Surface Temperature (LST)
