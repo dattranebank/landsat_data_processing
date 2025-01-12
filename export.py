@@ -56,21 +56,6 @@ def export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_
     print(f'Các tham số đã được xuất thành công ra {txt_path}')
 
 
-# Xuất tổ hợp B432
-def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\6. B432\\" + band_name
-    with (rasterio.open(output_path, 'w', driver='GTiff',
-                        height=band4_reflectance.shape[0], width=band4_reflectance.shape[1],
-                        count=3,  # 3 băng: Red, Green, Blue
-                        dtype='float32', crs='EPSG:32648',
-                        transform=band_transform)
-          as dst):
-        dst.write(band4_reflectance, 1)
-        dst.write(band3_reflectance, 2)
-        dst.write(band2_reflectance, 3)
-    print(f"Ảnh tổ hợp B432 đã được xuất tại: {output_path}")
-
-
 # Xuất ảnh viễn thám thành file csv
 def export_remote_sensing_image_to_csv(band, band_name):
     # Chuyển mảng numpy thành DataFrame
@@ -100,6 +85,7 @@ def export_toa_radiance(band_toa_radiance, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(band_toa_radiance, 1)
+    print(f"Export thành công TOA Radiance: {output_path}")
 
 
 # Xuất ảnh đã tính Surface Reflectance
@@ -112,6 +98,22 @@ def export_surface_reflectance(band_surface_reflectance, band_transform, band_na
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(band_surface_reflectance, 1)
+    print(f"Export thành công TOA Reflectance: {output_path}")
+
+
+# Xuất tổ hợp B432
+def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_transform, band_name):
+    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaKho\\6. B432\\" + band_name
+    with (rasterio.open(output_path, 'w', driver='GTiff',
+                        height=band4_reflectance.shape[0], width=band4_reflectance.shape[1],
+                        count=3,  # 3 băng: Red, Green, Blue
+                        dtype='float32', crs='EPSG:32648',
+                        transform=band_transform)
+          as dst):
+        dst.write(band4_reflectance, 1)
+        dst.write(band3_reflectance, 2)
+        dst.write(band2_reflectance, 3)
+    print(f"Export thành công B432: {output_path}")
 
 
 # Xuất ảnh đã tính NDVI
@@ -124,6 +126,7 @@ def export_ndvi(ndvi, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(ndvi, 1)
+    print(f"Export thành công NDVI: {output_path}")
 
 
 # Xuất ảnh đã tính NDWI
@@ -136,6 +139,7 @@ def export_ndwi(ndwi, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(ndwi, 1)
+    print(f"Export thành công NDWI: {output_path}")
 
 
 # Xuất ảnh đã tính TOA Brightness Temperature
@@ -148,6 +152,7 @@ def export_toa_bt(band10_toa_bt, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(band10_toa_bt, 1)
+    print(f"Export thành công TOA BT: {output_path}")
 
 
 # Xuất ảnh đã tính PV
@@ -160,6 +165,7 @@ def export_pv(pv, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(pv, 1)
+    print(f"Export thành công PV: {output_path}")
 
 
 # Xuất ảnh đã tính LSE
@@ -172,6 +178,7 @@ def export_lse(lse, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(lse, 1)
+    print(f"Export thành công LSE: {output_path}")
 
 
 # Xuất ảnh đã tính LST
@@ -184,3 +191,4 @@ def export_lst(lst, band_transform, band_name):
                        count=1, dtype='float32', crs='EPSG:32648',
                        transform=band_transform) as dst:
         dst.write(lst, 1)
+    print(f"Export thành công LST: {output_path}")

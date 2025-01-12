@@ -8,6 +8,7 @@ from export import *
 
 
 def main():
+    print("Bắt đầu chương trình.")
     # Đọc số liệu từ MTL file
     os.environ[
         'PROJ_LIB'] = r"C:\\Users\\Dat Ebank\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\rasterio\\proj_data"
@@ -93,7 +94,7 @@ def main():
 
     # Tính NDVI, NDWI
     ndvi = calculate_ndvi(band4_surface_reflectance, band5_surface_reflectance)
-    ndwi = calculate_ndwi(band3_surface_reflectance, band5_surface_reflectance)
+    ndwi = calculate_ndwi(band5_surface_reflectance, band6_surface_reflectance)
 
     # Tính TOA Brightness Temperature
     band10_toa_bt = calculate_toa_brightness_temperature(band10_toa_radiance, k1_constant_band_10, k2_constant_band_10)
@@ -138,6 +139,8 @@ def main():
     export_lst(pv, band10_transform, "PV_Python.TIF")
     export_lst(lse, band10_transform, "LSE_Python.TIF")
     export_lst(lst, band10_transform, "LST_Python.TIF")
+
+    print("Kết thúc chương trình.")
 
 
 if __name__ == "__main__":
