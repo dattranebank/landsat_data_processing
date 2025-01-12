@@ -8,7 +8,7 @@ Landsat 8-9
 * Band 4
 * Band 5
 * Band 10
-* 
+
 ## 3. Calculate TOA Radiance
 B10_TOA_Radiance <br/>
 Note: Complete check output landsat_data_processing, ENVI 5.3 and ArcGIS 10.8
@@ -23,5 +23,5 @@ Note: Complete check output landsat_data_processing, ENVI 5.3 and ArcGIS 10.8
 ## 5. Calculate NDVI, NDWI, LST
 * NDVI
 * NDWI
-* LST
+* LST <br/>
 Note: Complete check output landsat_data_processing, ENVI 5.3 and ArcGIS 10.8

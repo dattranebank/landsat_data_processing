@@ -21,9 +21,9 @@ def calculate_ndvi(band4, band5):
     return ndvi
 
 
-# Tính NDWI từ Band 3 và Band 5
-def calculate_ndwi(band3, band5):
-    ndwi = (band3 - band5) / (band3 + band5)
+# Tính NDWI (Gao) từ Band 5 và Band 6
+def calculate_ndwi(band5, band6):
+    ndwi = (band5 - band6) / (band5 + band6)
     return ndwi
 
 
@@ -44,7 +44,7 @@ def calculate_lse(ndvi):
 
     # Tính Land Surface Emissivity (LSE)
     lse = 0.004 * pv + 0.986
-    return pv,lse
+    return pv, lse
 
 
 # Tính Land Surface Temperature (LST)
