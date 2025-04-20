@@ -13,7 +13,7 @@ def main():
     os.environ[
         'PROJ_LIB'] = r"C:\\Users\\Dat Ebank\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\rasterio\\proj_data"
 
-    mtl_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_MTL.txt"
+    mtl_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_MTL.txt"
     (landsat_product_id, output_format, data_type_band_1_to_11_lst, cloud_cover, cloud_cover_land,
      sun_elevation, map_projection, datum, utm_zone, grid_cell_size_panchromatic, grid_cell_size_reflective,
      grid_cell_size_thermal, corner_ul_lat_product, corner_ul_lon_product, corner_ur_lat_product, corner_ur_lon_product,
@@ -22,7 +22,7 @@ def main():
      k1_constant_band_10, k2_constant_band_10, k1_constant_band_11, k2_constant_band_11) = read_mtl(mtl_path)
 
     # Xuất thông số ảnh viễn thám Landsat
-    landsat_metadata_path = 'D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\TramChim_MuaKho_2023_MTL.txt'
+    landsat_metadata_path = 'D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\NuiChua_2024_MTL.txt'
     export_landsat_metadata(landsat_product_id, output_format, data_type_band_1_to_11_lst, cloud_cover,
                             cloud_cover_land, sun_elevation, map_projection, datum, utm_zone,
                             grid_cell_size_panchromatic, grid_cell_size_reflective, grid_cell_size_thermal,
@@ -33,12 +33,12 @@ def main():
                             k1_constant_band_11, k2_constant_band_11, landsat_metadata_path)
 
     # Đường dẫn tới Band 2, Band 3, Band 4, Band 5, Band 6 và Band 10
-    band2_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B2.TIF"
-    band3_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B3.TIF"
-    band4_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B4.TIF"
-    band5_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B5.TIF"
-    band6_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B6.TIF"
-    band10_path = "D:\\VQG_TramChim\\05_landsat_raw_data\\MuaKho\\LC09_L1TP_125053_20240226_20240226_02_T1_B10.TIF"
+    band2_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B2.TIF"
+    band3_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B3.TIF"
+    band4_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B4.TIF"
+    band5_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B5.TIF"
+    band6_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B6.TIF"
+    band10_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B10.TIF"
 
     # Đọc từng band
     band2_dn, band2_transform = read_band(band2_path)
@@ -49,24 +49,28 @@ def main():
     band10_dn, band10_transform = read_band(band10_path)
 
     # Cắt ảnh viễn thám
+    start_sample=1413
+    end_sample=2912
+    start_line=966
+    end_line=2465
     band2_dn, band2_transform = resize_remote_sensing_image(band2_dn, band2_transform,
-                                                            start_sample=1413, end_sample=2912,
-                                                            start_line=966, end_line=2465)
+                                                            start_sample=start_sample, end_sample=end_sample,
+                                                            start_line=start_line, end_line=end_line)
     band3_dn, band3_transform = resize_remote_sensing_image(band3_dn, band3_transform,
-                                                            start_sample=1413, end_sample=2912,
-                                                            start_line=966, end_line=2465)
+                                                            start_sample=start_sample, end_sample=end_sample,
+                                                            start_line=start_line, end_line=end_line)
     band4_dn, band4_transform = resize_remote_sensing_image(band4_dn, band4_transform,
-                                                            start_sample=1413, end_sample=2912,
-                                                            start_line=966, end_line=2465)
+                                                            start_sample=start_sample, end_sample=end_sample,
+                                                            start_line=start_line, end_line=end_line)
     band5_dn, band5_transform = resize_remote_sensing_image(band5_dn, band5_transform,
-                                                            start_sample=1413, end_sample=2912,
-                                                            start_line=966, end_line=2465)
+                                                            start_sample=start_sample, end_sample=end_sample,
+                                                            start_line=start_line, end_line=end_line)
     band6_dn, band6_transform = resize_remote_sensing_image(band6_dn, band6_transform,
-                                                            start_sample=1413, end_sample=2912,
-                                                            start_line=966, end_line=2465)
+                                                            start_sample=start_sample, end_sample=end_sample,
+                                                            start_line=start_line, end_line=end_line)
     band10_dn, band10_transform = resize_remote_sensing_image(band10_dn, band10_transform,
-                                                              start_sample=1413, end_sample=2912,
-                                                              start_line=966, end_line=2465)
+                                                              start_sample=start_sample, end_sample=end_sample,
+                                                              start_line=start_line, end_line=end_line)
 
     # Hiển thị band
     show_remote_sensing_image(band2_dn, "Band 2")
