@@ -77,7 +77,7 @@ def export_origin(band, band_transform, band_name):
 
 # Xuất ảnh đã tính TOA Radiance
 def export_toa_radiance(band_toa_radiance, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\1. TOA_Radiance\\" + band_name
+    output_path = "D:\\VQG_T\\05_landsat_processed_data_PCS\\2024\\1. TOA_Radiance\\" + band_name
 
     # Xuất band
     with rasterio.open(output_path, 'w', driver='GTiff', height=band_toa_radiance.shape[0],
@@ -90,7 +90,7 @@ def export_toa_radiance(band_toa_radiance, band_transform, band_name):
 
 # Xuất ảnh đã tính Surface Reflectance
 def export_surface_reflectance(band_surface_reflectance, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\2. Surface_Reflectance\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\2. Surface_Reflectance\\" + band_name
 
     # Xuất band
     with rasterio.open(output_path, 'w', driver='GTiff', height=band_surface_reflectance.shape[0],
@@ -103,7 +103,7 @@ def export_surface_reflectance(band_surface_reflectance, band_transform, band_na
 
 # Xuất tổ hợp B432
 def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\6. B432\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\6. B432\\" + band_name
     with (rasterio.open(output_path, 'w', driver='GTiff',
                         height=band4_reflectance.shape[0], width=band4_reflectance.shape[1],
                         count=3,  # 3 băng: Red, Green, Blue
@@ -118,7 +118,7 @@ def export_b432(band2_reflectance, band3_reflectance, band4_reflectance, band_tr
 
 # Xuất ảnh đã tính NDVI
 def export_ndvi(ndvi, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\3. NDVI\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\3. NDVI\\" + band_name
 
     # Xuất ảnh NDVI
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndvi.shape[0],
@@ -131,7 +131,7 @@ def export_ndvi(ndvi, band_transform, band_name):
 
 # Xuất ảnh đã tính NDWI
 def export_ndwi(ndwi, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\4. NDWI\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\4. NDWI\\" + band_name
 
     # Xuất ảnh NDWI
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndwi.shape[0],
@@ -144,7 +144,7 @@ def export_ndwi(ndwi, band_transform, band_name):
 
 # Xuất ảnh đã tính TOA Brightness Temperature
 def export_toa_bt(band10_toa_bt, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\5. LST\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\5. LST\\" + band_name
 
     # Xuất ảnh PV
     with rasterio.open(output_path, 'w', driver='GTiff', height=band10_toa_bt.shape[0],
@@ -157,7 +157,7 @@ def export_toa_bt(band10_toa_bt, band_transform, band_name):
 
 # Xuất ảnh đã tính PV
 def export_pv(pv, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\5. LST\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\5. LST\\" + band_name
 
     # Xuất ảnh PV
     with rasterio.open(output_path, 'w', driver='GTiff', height=pv.shape[0],
@@ -170,7 +170,7 @@ def export_pv(pv, band_transform, band_name):
 
 # Xuất ảnh đã tính LSE
 def export_lse(lse, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\5. LST\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\5. LST\\" + band_name
 
     # Xuất ảnh LSE
     with rasterio.open(output_path, 'w', driver='GTiff', height=lse.shape[0],
@@ -183,7 +183,7 @@ def export_lse(lse, band_transform, band_name):
 
 # Xuất ảnh đã tính LST
 def export_lst(lst, band_transform, band_name):
-    output_path = "D:\\VQG_TramChim\\06_landsat_processed_data_PCS\\MuaMua\\5. LST\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024\\5. LST\\" + band_name
 
     # Xuất ảnh LST
     with rasterio.open(output_path, 'w', driver='GTiff', height=lst.shape[0],

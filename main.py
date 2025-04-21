@@ -33,12 +33,12 @@ def main():
                             k1_constant_band_11, k2_constant_band_11, landsat_metadata_path)
 
     # Đường dẫn tới Band 2, Band 3, Band 4, Band 5, Band 6 và Band 10
-    band2_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B2.TIF"
-    band3_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B3.TIF"
-    band4_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B4.TIF"
-    band5_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B5.TIF"
-    band6_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B6.TIF"
-    band10_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC09_L1TP_125053_20231122_20231122_02_T1_B10.TIF"
+    band2_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B2.TIF"
+    band3_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B3.TIF"
+    band4_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B4.TIF"
+    band5_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B5.TIF"
+    band6_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B6.TIF"
+    band10_path = "D:\\VQG_NuiChua\\04_landsat_raw_data\\2024\\LC08_L1TP_123052_20240611_20240628_02_T1_B10.TIF"
 
     # Đọc từng band
     band2_dn, band2_transform = read_band(band2_path)
@@ -49,28 +49,37 @@ def main():
     band10_dn, band10_transform = read_band(band10_path)
 
     # Cắt ảnh viễn thám
-    start_sample=1413
-    end_sample=2912
-    start_line=966
-    end_line=2465
-    band2_dn, band2_transform = resize_remote_sensing_image(band2_dn, band2_transform,
-                                                            start_sample=start_sample, end_sample=end_sample,
-                                                            start_line=start_line, end_line=end_line)
-    band3_dn, band3_transform = resize_remote_sensing_image(band3_dn, band3_transform,
-                                                            start_sample=start_sample, end_sample=end_sample,
-                                                            start_line=start_line, end_line=end_line)
-    band4_dn, band4_transform = resize_remote_sensing_image(band4_dn, band4_transform,
-                                                            start_sample=start_sample, end_sample=end_sample,
-                                                            start_line=start_line, end_line=end_line)
-    band5_dn, band5_transform = resize_remote_sensing_image(band5_dn, band5_transform,
-                                                            start_sample=start_sample, end_sample=end_sample,
-                                                            start_line=start_line, end_line=end_line)
-    band6_dn, band6_transform = resize_remote_sensing_image(band6_dn, band6_transform,
-                                                            start_sample=start_sample, end_sample=end_sample,
-                                                            start_line=start_line, end_line=end_line)
-    band10_dn, band10_transform = resize_remote_sensing_image(band10_dn, band10_transform,
-                                                              start_sample=start_sample, end_sample=end_sample,
-                                                              start_line=start_line, end_line=end_line)
+    # start_sample = 1413
+    # end_sample = 2912
+    # start_line = 966
+    # end_line = 2465
+    # band2_dn, band2_transform = resize_remote_sensing_image(band2_dn, band2_transform,
+    #                                                         start_sample=start_sample, end_sample=end_sample,
+    #                                                         start_line=start_line, end_line=end_line)
+    # band3_dn, band3_transform = resize_remote_sensing_image(band3_dn, band3_transform,
+    #                                                         start_sample=start_sample, end_sample=end_sample,
+    #                                                         start_line=start_line, end_line=end_line)
+    # band4_dn, band4_transform = resize_remote_sensing_image(band4_dn, band4_transform,
+    #                                                         start_sample=start_sample, end_sample=end_sample,
+    #                                                         start_line=start_line, end_line=end_line)
+    # band5_dn, band5_transform = resize_remote_sensing_image(band5_dn, band5_transform,
+    #                                                         start_sample=start_sample, end_sample=end_sample,
+    #                                                         start_line=start_line, end_line=end_line)
+    # band6_dn, band6_transform = resize_remote_sensing_image(band6_dn, band6_transform,
+    #                                                         start_sample=start_sample, end_sample=end_sample,
+    #                                                         start_line=start_line, end_line=end_line)
+    # band10_dn, band10_transform = resize_remote_sensing_image(band10_dn, band10_transform,
+    #                                                           start_sample=start_sample, end_sample=end_sample,
+    #                                                           start_line=start_line, end_line=end_line)
+
+    # Cắt ảnh viễn thám
+    shapefile_path="D:\\VQG_NuiChua\\02_base_maps_WGS1984_49N\\study_area_1984_49n.shp"
+    band2_dn, band2_transform=cut_image_by_polygon(band2_path, shapefile_path)
+    band3_dn, band3_transform=cut_image_by_polygon(band3_path, shapefile_path)
+    band4_dn, band4_transform=cut_image_by_polygon(band4_path, shapefile_path)
+    band5_dn, band5_transform=cut_image_by_polygon(band5_path, shapefile_path)
+    band6_dn, band6_transform=cut_image_by_polygon(band6_path, shapefile_path)
+    band10_dn, band10_transform=cut_image_by_polygon(band10_path, shapefile_path)
 
     # Hiển thị band
     show_remote_sensing_image(band2_dn, "Band 2")
@@ -81,8 +90,9 @@ def main():
     show_remote_sensing_image(band10_dn, "Band 10")
 
     # Tính TOA Radiance
-    band10_toa_radiance = calculate_toa_radiance(band10_dn, radiance_mult_band_1_to_11_lst[9],
-                                                 radiance_add_band_1_to_11_lst[9])
+    band10_toa_radiance = calculate_toa_radiance_b10(band10_dn, radiance_mult_band_1_to_11_lst[9],
+                                                     radiance_add_band_1_to_11_lst[9])
+
     # Tính Surface Reflectance
     band2_surface_reflectance = calculate_surface_reflectance(band2_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
@@ -95,7 +105,6 @@ def main():
     band6_surface_reflectance = calculate_surface_reflectance(band6_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
 
-
     # Tính NDVI, NDWI
     ndvi = calculate_ndvi(band4_surface_reflectance, band5_surface_reflectance)
     ndwi = calculate_ndwi(band5_surface_reflectance, band6_surface_reflectance)
@@ -104,7 +113,7 @@ def main():
     band10_toa_bt = calculate_toa_brightness_temperature(band10_toa_radiance, k1_constant_band_10, k2_constant_band_10)
 
     # Tính Land Surface Emissivity (LSE)
-    pv, lse = calculate_lse(ndvi)
+    pv, lse = calculate_lse(ndvi, band4_surface_reflectance)
 
     # Tính Land Surface Temperature (LST)
     lst = calculate_lst(band10_toa_bt, lse)
@@ -130,7 +139,6 @@ def main():
     export_surface_reflectance(band4_surface_reflectance, band4_transform, "B4_Surface_Reflectance_Python.TIF")
     export_surface_reflectance(band5_surface_reflectance, band5_transform, "B5_Surface_Reflectance_Python.TIF")
     export_surface_reflectance(band6_surface_reflectance, band6_transform, "B6_Surface_Reflectance_Python.TIF")
-
 
     # Xuất NDVI, NDWI
     export_ndvi(ndvi, band5_transform, "NDVI_Python.TIF")
