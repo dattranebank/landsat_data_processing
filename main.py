@@ -98,7 +98,7 @@ def main():
     band6_surface_reflectance = calculate_surface_reflectance(band6_dn, reflectance_mult_band,
                                                               reflectance_add_band, sun_elevation)
 
-    # Tính NDVI, ndmi
+    # Tính NDVI, NDMI
     ndvi = calculate_ndvi(band4_surface_reflectance, band5_surface_reflectance)
     ndmi = calculate_ndmi(band5_surface_reflectance, band6_surface_reflectance)
 
@@ -133,9 +133,9 @@ def main():
     export_surface_reflectance(band5_surface_reflectance, band5_transform, "B5_Surface_Reflectance_Python.TIF")
     export_surface_reflectance(band6_surface_reflectance, band6_transform, "B6_Surface_Reflectance_Python.TIF")
 
-    # Xuất NDVI, ndmi
+    # Xuất NDVI, NDMI
     export_ndvi(ndvi, band5_transform, "NDVI_Python.TIF")
-    export_ndmi(ndmi, band5_transform, "ndmi_Python.TIF")
+    export_ndmi(ndmi, band5_transform, "NDMI_Python.TIF")
 
     # Xuất TOA Brightness Temperature
     export_toa_bt(band10_toa_bt, band10_transform, "B10_TOA_BT_Python.TIF")

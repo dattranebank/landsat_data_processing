@@ -129,17 +129,17 @@ def export_ndvi(ndvi, band_transform, band_name):
     print(f"Export thành công NDVI: {output_path}")
 
 
-# Xuất ảnh đã tính ndmi
+# Xuất ảnh đã tính NDMI
 def export_ndmi(ndmi, band_transform, band_name):
-    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024_PCS\\4. ndmi\\" + band_name
+    output_path = "D:\\VQG_NuiChua\\05_landsat_processed_data_PCS\\2024_PCS\\4. NDMI\\" + band_name
 
-    # Xuất ảnh ndmi
+    # Xuất ảnh NDMI
     with rasterio.open(output_path, 'w', driver='GTiff', height=ndmi.shape[0],
                        width=ndmi.shape[1],
                        count=1, dtype='float32', crs='EPSG:32649',
                        transform=band_transform) as dst:
         dst.write(ndmi, 1)
-    print(f"Export thành công ndmi: {output_path}")
+    print(f"Export thành công NDMI: {output_path}")
 
 
 # Xuất ảnh đã tính TOA Brightness Temperature
