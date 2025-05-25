@@ -9,7 +9,7 @@ def calculate_toa_radiance(band_dn, radiance_mult_band, radiance_add_band):
 
 # Chuyển band_dn sang band_toa_radiance (DNs sang TOA Radiance)
 def calculate_toa_radiance_b10(band_dn, radiance_mult_band, radiance_add_band):
-    band_toa_radiance_b10 = radiance_mult_band * band_dn + radiance_add_band - 0.29
+    band_toa_radiance_b10 = radiance_mult_band * band_dn + radiance_add_band
     return band_toa_radiance_b10
 
 
@@ -27,10 +27,10 @@ def calculate_ndvi(band4, band5):
     return ndvi
 
 
-# Tính NDWI (Gao) từ Band 5 và Band 6
-def calculate_ndwi(band5, band6):
-    ndwi = (band5 - band6) / (band5 + band6)
-    return ndwi
+# Tính NDWI (Gao), hay còn gọi là NDMI từ Band 5 và Band 6
+def calculate_ndmi(band5, band6):
+    ndmi = (band5 - band6) / (band5 + band6)
+    return ndmi
 
 
 # Tính TOA Brightness Temperature
@@ -42,8 +42,8 @@ def calculate_toa_brightness_temperature(band10_toa_radiance, k1, k2):
 # Tính Land Surface Emissivity (LSE)
 def calculate_lse(ndvi, band4_surface_reflectance):
     # Tính NDVI min và NDVI max
-    ndvi_min = 0.2
-    ndvi_max = 0.5
+    ndvi_min = np.nanmin(ndvi)
+    ndvi_max = np.nanmax(ndvi)
 
     # Tính Proportion of Vegetation (PV)
     pv = ((ndvi - ndvi_min) / (ndvi_max - ndvi_min)) ** 2
@@ -59,18 +59,35 @@ def calculate_lse(ndvi, band4_surface_reflectance):
 
     lse = np.where(
         ndvi < ndvi_min,
-        band4_surface_reflectance if band4_surface_reflectance is not None else 0.97,
+        1 - band4_surface_reflectance,
         np.where(
             ndvi > ndvi_max,
             epsilon_v,
             epsilon_v * pv + epsilon_s * (1 - pv) + de
         )
     )
+
+    print("Min Band4_SR:", np.nanmin(band4_surface_reflectance))
+    print("Max Band4_SR:", np.nanmax(band4_surface_reflectance))
+    print("Min NDVI:", np.nanmin(ndvi))
+    print("Max NDVI:", np.nanmax(ndvi))
+    print("Min pv:", np.nanmin(pv))
+    print("Max pv:", np.nanmax(pv))
+    print("Min lse:", np.nanmin(lse))
+    print("Max lse:", np.nanmax(lse))
+
     return pv, lse
 
 
 # Tính Land Surface Temperature (LST)
 def calculate_lst(band10_toa_bt, lse):
     # lse is e
-    lst = band10_toa_bt / (1 + (10.895 * band10_toa_bt / 0.01438) * np.log(lse))
+    wavelength = 10.895e-6  # đổi đơn vị từ µm sang mét
+    p = 1.438e-2  # m·K
+    lst = band10_toa_bt / (1 + (wavelength * band10_toa_bt / p) * np.log(lse))
+
+    print("Min toa_bt:", np.nanmin(band10_toa_bt))
+    print("Max toa_bt:", np.nanmax(band10_toa_bt))
+    print("Min lst:", np.nanmin(lst))
+    print("Max lst:", np.nanmax(lst))
     return lst
